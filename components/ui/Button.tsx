@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
-type Variant = 'primary' | 'secondary' | 'danger' | 'ghost';
+type Variant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'tonal';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
@@ -8,10 +8,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-300',
-  secondary: 'bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-400',
-  danger: 'bg-red-600 text-white hover:bg-red-700 disabled:bg-red-300',
-  ghost: 'text-gray-600 hover:text-gray-900 hover:bg-gray-100',
+  primary:
+    'bg-primary text-on-primary hover:opacity-90 active:scale-[0.98] shadow-[0px_8px_24px_rgba(0,61,155,0.2)] disabled:opacity-50',
+  tonal:
+    'bg-primary-fixed text-primary hover:bg-primary-fixed-dim active:scale-[0.98] disabled:opacity-50',
+  secondary:
+    'bg-surface-container-low text-on-surface-variant hover:bg-surface-container active:scale-[0.98] disabled:opacity-40',
+  danger:
+    'bg-error text-on-error hover:opacity-90 active:scale-[0.98] shadow-lg shadow-error/20 disabled:opacity-50',
+  ghost: 'text-primary hover:bg-primary-fixed active:scale-95',
 };
 
 export default function Button({
@@ -25,7 +30,7 @@ export default function Button({
   return (
     <button
       disabled={disabled || isLoading}
-      className={`inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-bold transition-all focus:outline-none disabled:cursor-not-allowed ${variantClasses[variant]} ${className}`}
       {...props}
     >
       {isLoading && (
